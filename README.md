@@ -8,10 +8,10 @@
 <h3 align="center"> 即刻开始！</h3>
 
 <h4>1. 安装MySQL数据库</h4>
- windows：<a href="https://blog.csdn.net/qq_45830276/article/details/126022778">参考</a> <br />
- linux：<a href="https://blog.csdn.net/qq_45830276/article/details/126022778">参考</a>  
-<h4>2. 安装nodejs框架</h4>
- windows：<a href="https://blog.csdn.net/qq_45830276/article/details/126022778">参考</a>  
+ windows：<a href="https://blog.csdn.net/jsugs/article/details/124143762">参考</a> <br />
+ linux：<a href="https://blog.csdn.net/zhang_m_h/article/details/123567367">参考</a>  
+<h4>2. 安装nodejs框架（本项目版本v16.14.2）</h4>
+ windows：<a href="https://blog.csdn.net/weixin_44547599">参考</a>  
  <br />
  linux： <a href="https://blog.csdn.net/qq_45830276/article/details/126022778">参考</a>  
  <br />
