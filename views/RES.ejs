@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheet/VM.css">
+</head>
+</head>
+<body>
+
+    <% if( Flag == 1 ) {%>
+        <h1> 手机号码或充值金额不能为空！！ </h1>
+    <% } else if( Flag == 2 ) {%>
+        <h1> 该手机号码未开户！ </h1>
+    <% } else {%>
+        <h1> 恭喜你，充值成功！！ </h1>
+    <% }%>
+    
+    <div>
+        <div>点击下方按钮回到充值界面</div>
+
+    </div>
+    <a href="http://127.0.0.1:3000">
+
+        <button>返回充值页面</button>
+     
+     </a>
+</body>
+</html>

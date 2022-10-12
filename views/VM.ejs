@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虚拟IC充值终端</title>
+    <link rel="stylesheet" href="/stylesheet/VM.css">
+</head>
+
+<body>
+    <!-- <script>
+        
+        alert("欢迎来到充值入口！");
+        
+    </script> -->
+    <h1 class="h1">模拟IC充值终端</h1>
+    <form class="formbox" name="formPost" method="post" action="http://127.0.0.1:3000/user"
+        enctype="application/x-www-form-urlencoded">
+        <div class="items">
+            <div>模拟终端号:</div>
+
+            <select name="device">
+                <option value="1">终端1</option>
+                <option value="2">终端2</option>
+                <option value="3">终端3</option>
+                <option value="4">终端4</option>
+            </select>
+        </div>
+        <div class="items">
+            <div>用户手机：</div>
+            <input name="phone" type="text" placeholder="请输入号码" />
+        </div>
+        <div class="items">
+            <div>充值金额：</div>
+
+            <input name="rmb" type="text" placeholder="请输入金额" />
+        </div>
+
+        <div class="items">
+            <input type="submit" value="确定充值">
+            <input type="reset" value="取消支付">
+        </div>
+
+    </form>
+
+</body>
+
+</html>
