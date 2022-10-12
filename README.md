@@ -94,5 +94,7 @@ Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protoc
 alter user 'root'@'localhost' identified with mysql_native_password by '123';  #123替换为自己的密码
 flush privileges;
 ```
-重启项目即可
+重启项目即可解决。
+
+
 
