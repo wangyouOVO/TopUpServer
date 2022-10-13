@@ -90,7 +90,6 @@ exports.trafficStatistic = (req, res) => {
     db.query(queryDay, [year, month, queryData.Mid], (err, results) => {
       if (err) return res.cc(err);
       var dataDay = new Array(30).fill(0);
-      console.log(arr)
       for (var i = 0; i < results.length; i++) {
         dataDay[results[i].day - 1] = dataDay[results[i].day - 1] + results[i].rmb;
       }
