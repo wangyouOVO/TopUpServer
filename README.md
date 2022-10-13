@@ -48,6 +48,7 @@ create table TopUpLog(id INT primary key auto_increment,
   topUpBMB DECIMAL(5,2), 
   `time` DATETIME DEFAULT CURRENT_TIMESTAMP,
   Mid INT DEFAULT 1);#创建充值记录表
+create table trafficLog(id INT primary key auto_increment, year INT,month INT,day INT,times INT, rmb decimal(5,2) not null default 0);#创建日流量表
 exit;#退出sql终端
 ```
 4. 开启mysql服务
@@ -82,6 +83,14 @@ node index.js
 #云服务（如阿里云）
 直接输入远程服务器公网ip即可
 ```
+8. 当使用node启动服务时，可能出现杀死终端，进程停止的情况，因此可以使用PM2工具托管我们的服务，使用方法（非必须）：
+```sh
+npm install -g pm2 #全局安装PM2
+ln -s /user/local/nodejs/lib/node_modules/pm2/bin/pm2 /usr/local/bin #通过软连接使得PM2指令可以全局使用，其中‘/user/local/nodejs/lib/node_modules/pm2/bin/pm2’中的‘/user/local/nodejs’是node的安装目录，注意替换。
+pm2 start index.js #启动服务！
+pm2 stop 0 # 停止 id 为0的指定应用程序
+```
+
 <h4>4. 注意事项</h4>
 
 1. 如果在阿里云等云服务器中部署，务必在阿里云服务器管理页面的安全组中修改端口属性，如项目在3000端口，需要给3000端口配置权限，同样，mysql服务在3306端口，也需要开放权限。

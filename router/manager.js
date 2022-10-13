@@ -5,8 +5,8 @@ const router = express.Router();
 const managerHandler = require("../router_handler/manager.js");
 
 router.get("/",  managerHandler.showManagerWin);
-router.post("/register",  managerHandler.regUser);
-
-
+router.get("/register",  managerHandler.regUser);
+router.get("/traffic",  managerHandler.trafficStatistic);
+// router.get("/register",  managerHandler.regUser);
 // 把路由对象共享出去
 module.exports = router;

@@ -29,6 +29,7 @@ exports.topUp = (req, res) => {
     let newRMB;
     newRMB = userInfo.rmb + parseFloat(orderinfo.rmb);
     console.log(newRMB)
+    //更新用户余额信息
     const updataRMB = "update users set rmb=? where id=?";
     db.query(
         updataRMB,
@@ -37,6 +38,8 @@ exports.topUp = (req, res) => {
           if (err) return res.cc(err);      
         }
       );
+
+    //更新充值信息
     const sqlStr_2 = "insert into TopUpLog set ?";
     db.query(
       sqlStr_2,
@@ -44,9 +47,61 @@ exports.topUp = (req, res) => {
       function (err, results) {
         if (err) return res.cc(err);      
         // res.cc("充值成功！", 0);
-        return res.render("RES",{Flag : 0 ,msg : "充值成功！！"})
+        // return res.render("RES",{Flag : 0 ,msg : "充值成功！！"})
       }
     );
+
+    //更新流量信息
+    const queryTraffic = "select * from trafficLog where year=? AND month=? AND day=?";
+    const addTraffic = "insert into trafficLog set ?";
+    const updataTraffic = "update trafficLog set rmb=? , times=? where id=?";
+    var date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth()+1;
+    const day = date.getDate();
+    var addTrafficFun = ()=>{
+      db.query(
+        addTraffic,
+        { year: year, month: month, day: day, times: 1,rmb: orderinfo.rmb},
+        function (err, results) {
+          if (err) {
+            console.log("cuole2")
+            return res.cc(err); }       
+          // res.cc("充值成功！", 0);
+          return res.render("RES",{Flag : 0 ,msg : "充值成功！！"})
+        }
+      );
+    }
+    var updataTrafficFun = (id,times,updatarmb)=>{
+      db.query(
+        updataTraffic,
+        [updatarmb,times,id],
+        function (err, results) {
+          if (err){
+            console.log("cuole1")
+            return res.cc(err); }   
+          return res.render("RES",{Flag : 0 ,msg : "充值成功！！"})   
+        }
+      );
+    }
+    db.query(
+      queryTraffic,
+      [year,month,day],
+      function (err, results) {
+        if (err) {
+          console.log("cuole3")
+          return res.cc(err); } ;
+        if(results.length == 0){
+          addTrafficFun();
+        }else{
+          const id = results[0].id;
+          const updatarmb = results[0].rmb + parseFloat(orderinfo.rmb);
+          const times = results[0].times + 1;
+          updataTrafficFun(id, times, updatarmb)
+        }      
+      }
+    );
+
   });
 };
 
