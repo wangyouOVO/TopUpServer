@@ -52,7 +52,7 @@ exports.topUp = (req, res) => {
     );
 
     //更新流量信息
-    const queryTraffic = "select * from trafficLog where year=? AND month=? AND day=?";
+    const queryTraffic = "select * from trafficLog where year=? AND month=? AND day=? AND Mid=?";
     const addTraffic = "insert into trafficLog set ?";
     const updataTraffic = "update trafficLog set rmb=? , times=? where id=?";
     var date = new Date();
@@ -62,7 +62,7 @@ exports.topUp = (req, res) => {
     var addTrafficFun = ()=>{
       db.query(
         addTraffic,
-        { year: year, month: month, day: day, times: 1,rmb: orderinfo.rmb},
+        { year: year, month: month, day: day, times: 1,rmb: orderinfo.rmb, Mid: orderinfo.device},
         function (err, results) {
           if (err) {
             console.log("cuole2")
@@ -86,7 +86,7 @@ exports.topUp = (req, res) => {
     }
     db.query(
       queryTraffic,
-      [year,month,day],
+      [year,month,day,orderinfo.device],
       function (err, results) {
         if (err) {
           console.log("cuole3")

@@ -7,6 +7,7 @@ const managerHandler = require("../router_handler/manager.js");
 router.get("/",  managerHandler.showManagerWin);
 router.get("/register",  managerHandler.regUser);
 router.get("/traffic",  managerHandler.trafficStatistic);
-// router.get("/register",  managerHandler.regUser);
+router.get("/reserch",  managerHandler.reserchUser);
+router.get("/ask",  managerHandler.askLog);
 // 把路由对象共享出去
 module.exports = router;
