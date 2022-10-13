@@ -2,9 +2,10 @@
 // 导入数据库操作模块
 const { resolveInclude } = require("ejs");
 const db = require("../db/index");
+const config = require("../config")
 
 exports.showManagerWin = (req, res) => {
-  res.render("Register");
+  res.render("Register",{ ip: config.ip, port: config.port });
 }
 
 // 注册用户的处理函数
@@ -16,7 +17,8 @@ exports.regUser = (req, res) => {
   };
   //@ 判断数据是否合法
   if (!userinfo.username || !userinfo.phone) {
-    return res.send({ status: 1, message: "开户人姓名，手机号不能为空！" });
+    // return res.send({ status: 1, message: "开户人姓名，手机号不能为空！" });
+    return res.render("RES", { status: 1, message: "注意：开户人姓名，手机号不能为空！", ip: config.ip, port: config.port })
   }
 
   //@ 执行SQL语句判断用户名是否被占用
@@ -30,8 +32,8 @@ exports.regUser = (req, res) => {
     }
 
     if (results.length > 0) {
-
-      return res.cc("该手机号已开户！请换手机号重试");
+      // return res.cc("该手机号已开户！请换手机号重试");
+      return res.render("RES", { status: 1, message: "注意：该手机号已开户！请换手机号重试", ip: config.ip, port: config.port })
     }
 
     // @插入新用户
@@ -42,7 +44,7 @@ exports.regUser = (req, res) => {
       { name: userinfo.username, phone: userinfo.phone, rmb: preRMB },
       function (err, results) {
         if (err) return res.cc(err);
-        res.cc("注册成功！", 0);
+        return res.render("RES", { status: 0, message: "恭喜你，开户成功!!", ip: config.ip, port: config.port,newRMB:0 })
       }
     );
   });

@@ -3,11 +3,11 @@ const bodyParser=require("body-parser");
 // 解析以 application/json 和 application/x-www-form-urlencoded 提交的数据
 // const ejs = require('ejs');
 const path = require("path"); //Node.js内置模块
-
+const config = require("./config")
 
 
 const app = express()
-const port = 3000
+const port = config.port
 
 // 配置cors跨域
 const cors = require("cors");
@@ -46,19 +46,8 @@ const managerRouter = require("./router/manager");
 // 注意：以 /my 开头的接口，都是有权限的接口，需要进行 Token 身份认证
 app.use("/manager", managerRouter);
 
-
-// app.post('/', urlencodedParser,function (req, res) {
-//     console.log("收到了")
-//     console.log(req.body)
-//     // var html = "./view/VM.html"
-//     // res.send({na: "OK"})
-//     res.render("VM")
-//   })
-
 app.get('/', (req, res) => {
-    console.log(req.query)
-    // res.send('Hello World!')
-    res.render("VM")
+    res.render("VM",{ip: config.ip,port: config.port});
 })
 
 app.listen(port, () => {

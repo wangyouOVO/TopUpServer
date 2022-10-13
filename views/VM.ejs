@@ -10,13 +10,8 @@
 </head>
 
 <body>
-    <!-- <script>
-        
-        alert("欢迎来到充值入口！");
-        
-    </script> -->
     <h1 class="h1">模拟IC充值终端</h1>
-    <form class="formbox" name="formPost" method="post" action="http://127.0.0.1:3000/user"
+    <form class="formbox" name="formPost" method="post" action="http://<%= ip %>:<%= port %>/user"
         enctype="application/x-www-form-urlencoded">
         <div class="items">
             <div>模拟终端号:</div>
@@ -41,6 +36,9 @@
         <div class="items">
             <input type="submit" value="确定充值">
             <input type="reset" value="取消支付">
+        </div>
+        <div class="items">
+           <a href="http://<%= ip %>:<%= port %>/manager">没有账户？</a>
         </div>
 
     </form>
