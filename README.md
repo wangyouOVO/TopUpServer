@@ -41,14 +41,14 @@ use iot; #管理新创建的数据库
 create table users(id INT primary key auto_increment, 
   name VARCHAR(20), 
   phone VARCHAR(11), 
-  rmb decimal(5,2) DEFAULT 0);#创建users表
+  rmb decimal(10,2) DEFAULT 0);#创建users表
 create table TopUpLog(id INT primary key auto_increment,
   userid INT, 
   username VARCHAR(20),
-  topUpBMB DECIMAL(5,2), 
+  topUpBMB DECIMAL(10,2), 
   `time` DATETIME DEFAULT CURRENT_TIMESTAMP,
   Mid INT DEFAULT 1);#创建充值记录表
-create table trafficLog(id INT primary key auto_increment, year INT,month INT,day INT,times INT, rmb decimal(5,2) not null default 0);#创建日流量表
+create table trafficLog(id INT primary key auto_increment, year INT,month INT,day INT,times INT, rmb decimal(10,2) not null default 0, Mid INT);#创建日流量表
 exit;#退出sql终端
 ```
 4. 开启mysql服务
@@ -58,7 +58,7 @@ service mysql start #开启mysql服务
 service mysql status #可见当前状态
 service mysql stop #不用时可以停止服务
 #windows
-net start MySQL80 #开启mysql服务
+net start MySQL80 #开启mysql服务(命令终端要有管理员权限)
 ```
   
 5. 在nodeServer/db/index.js文件中配置您的数据库信息
@@ -89,6 +89,16 @@ npm install -g pm2 #全局安装PM2
 ln -s /user/local/nodejs/lib/node_modules/pm2/bin/pm2 /usr/local/bin #通过软连接使得PM2指令可以全局使用，其中‘/user/local/nodejs/lib/node_modules/pm2/bin/pm2’中的‘/user/local/nodejs’是node的安装目录，注意替换。
 pm2 start index.js #启动服务！
 pm2 stop 0 # 停止 id 为0的指定应用程序
+```
+9. API和路由介绍
+```sh
+#面向用户
+http://101.132.72.0 #充值页面
+#面向管理者
+http://101.132.72.0/manager/traffic?Mid=0&Month=10  #获取全部终端本年度10月流量数据
+http://101.132.72.0/manager/ask  #获取最新十条充值记录
+http://101.132.72.0/manager/register?name=xixi&phone=13645531865 #开户
+http://101.132.72.0/manager/reserch?phone=17855388920 #查询某用户的充值记录
 ```
 
 <h4>4. 注意事项</h4>
