@@ -5,7 +5,7 @@ const db = require("../db/index");
 const config = require("../config")
 
 exports.showManagerWin = (req, res) => {
-  res.render("Register",{ ip: config.ip, port: config.port });
+  res.render("Register", { ip: config.ip, port: config.port });
 }
 
 // 注册用户的处理函数
@@ -13,12 +13,14 @@ exports.regUser = (req, res) => {
   //@ 接受数据
   var userinfo = {
     username: req.query.name,
-    phone: req.query.phone
+    phone: req.query.phone,
+    app: res.query?.app
   };
   //@ 判断数据是否合法
   if (!userinfo.username || !userinfo.phone) {
-    // return res.send({ status: 1, message: "开户人姓名，手机号不能为空！" });
-    return res.render("RES", { status: 1, message: "注意：开户人姓名，手机号不能为空！", ip: config.ip, port: config.port })
+    if (userinfo.app == 1) { return res.send({ status: 1, message: "开户人姓名，手机号不能为空！" }); }
+    else
+      return res.render("RES", { status: 1, message: "注意：开户人姓名，手机号不能为空！", ip: config.ip, port: config.port })
   }
 
   //@ 执行SQL语句判断用户名是否被占用
@@ -32,8 +34,9 @@ exports.regUser = (req, res) => {
     }
 
     if (results.length > 0) {
-      // return res.cc("该手机号已开户！请换手机号重试");
-      return res.render("RES", { status: 1, message: "注意：该手机号已开户！请换手机号重试", ip: config.ip, port: config.port })
+      if (userinfo.app == 1) { return res.send({ status: 1, message: "该手机号已开户！请换手机号重试！" }); }
+      else
+        return res.render("RES", { status: 1, message: "注意：该手机号已开户！请换手机号重试", ip: config.ip, port: config.port })
     }
 
     // @插入新用户
@@ -44,7 +47,9 @@ exports.regUser = (req, res) => {
       { name: userinfo.username, phone: userinfo.phone, rmb: preRMB },
       function (err, results) {
         if (err) return res.cc(err);
-        return res.render("RES", { status: 0, message: "恭喜你，开户成功!!", ip: config.ip, port: config.port,newRMB:0 })
+        if (userinfo.app == 1) { return res.send({ status: 0, message: "恭喜你，开户成功!!" }); }
+        else
+          return res.render("RES", { status: 0, message: "恭喜你，开户成功!!", ip: config.ip, port: config.port, newRMB: 0 })
       }
     );
   });
@@ -134,7 +139,7 @@ exports.reserchUser = (req, res) => {
   const queryUser1 = "select * from users where phone=?";
   db.query(queryUser1, userinfo.phone, (err, results) => {
     if (err) return res.cc(err);
-    if(results.length == 0) return res.cc("该手机号未开户！");
+    if (results.length == 0) return res.cc("该手机号未开户！");
     var respon = new Object();
     respon.remainRmb = results[0].rmb;
     db.query(queryUser, results[0].id, (err, results) => {
@@ -152,7 +157,7 @@ exports.reserchUser = (req, res) => {
 }
 
 //获取最新充值记录
-exports.askLog = (req, res) =>{
+exports.askLog = (req, res) => {
   const queryLastData = "select * from (select * from TopUpLog order by id desc limit 10) as a order by id;"
   db.query(
     queryLastData,
