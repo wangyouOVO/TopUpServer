@@ -15,13 +15,7 @@
         enctype="application/x-www-form-urlencoded">
         <div class="items">
             <div>模拟终端号:</div>
-
-            <select name="device">
-                <option value="1">终端1</option>
-                <option value="2">终端2</option>
-                <option value="3">终端3</option>
-                <option value="4">终端4</option>
-            </select>
+            <input  name="device" type="text" onfocus="this.blur();" value="<%= terminal.Mid%>" />
         </div>
         <div class="items">
             <div>用户手机：</div>
@@ -42,7 +36,8 @@
         </div>
 
     </form>
-
+    <div>地址：<%= terminal.address%></div>
+    <div>版本号：1.<%= terminal.version%></div>
 </body>
 
 </html>

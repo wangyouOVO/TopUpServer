@@ -46,9 +46,7 @@ const managerRouter = require("./router/manager");
 // 注意：以 /my 开头的接口，都是有权限的接口，需要进行 Token 身份认证
 app.use("/manager", managerRouter);
 
-app.get('/', (req, res) => {
-    res.render("VM",{ip: config.ip,port: config.port});
-})
+app.use('/', userRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

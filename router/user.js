@@ -4,6 +4,8 @@ const router = express.Router();
 // 导入用户路由处理函数模块
 const userHandler = require("../router_handler/user");
 
+router.get("/",  userHandler.selectTerminal);
+router.get("/select",  userHandler.rendertopup);
 router.post("/",  userHandler.topUp);
 
 

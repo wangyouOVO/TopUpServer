@@ -4,14 +4,15 @@ const { resolveInclude } = require("ejs");
 const db = require("../db/index");
 const config = require("../config")
 
+
+
+// 展示注册界面
 exports.showManagerWin = (req, res) => {
   res.render("Register", { ip: config.ip, port: config.port });
 }
 
 // 注册用户的处理函数
 exports.regUser = (req, res) => {
- 
-
 
   //@ 接受数据
   var userinfo = {
@@ -24,8 +25,6 @@ exports.regUser = (req, res) => {
   console.log(userinfo.username)
   console.log(userinfo.phone)
 
-
-
   //@ 判断数据是否合法
   if (!userinfo.username || !userinfo.phone) {
     if (userinfo.app !== undefined) { return res.send({ status: 1, message: "开户人姓名，手机号不能为空！" }); }
@@ -34,7 +33,6 @@ exports.regUser = (req, res) => {
   }
 
   //@ 执行SQL语句判断用户名是否被占用
-  // 定义SQL语句
   const sqlStr_1 = "select * from users where phone=?";
   db.query(sqlStr_1, userinfo.phone, (err, results) => {
     // 执行 SQL 语句失败
@@ -180,4 +178,96 @@ exports.askLog = (req, res) => {
       res.send(respon)
     }
   );
+}
+
+//更新版本
+exports.updataVersion = (req, res) => {
+  const queryLastVeresion = "select * from TerminalList where id=1;"
+  db.query(queryLastVeresion, (err, results) => {
+    if (err) return res.cc(err);
+    const newversion = results[0].version + 1
+    const updataversion = "update TerminalList set version=? ;"
+    db.query(updataversion, [newversion], (err, results) => {
+      if (err) return res.cc(err);
+      return res.send({ status: 0, message: "更新成功！", version: newversion })
+    })
+  })
+}
+
+//添加终端
+exports.addTerminal = (req, res) => {
+  const terminalinfo = req.query;
+  //@ 判断数据是否合法
+  if (!terminalinfo.Mid || !terminalinfo.address) {
+    return res.send({ status: 1, message: "注册终端信息不能为空！" });
+  }
+  const queryTerminal = "select * from TerminalList where Mid=?";
+  db.query(queryTerminal,Number(terminalinfo.Mid), (err, results) => {
+    if (err) {
+      return res.cc(err);
+    }
+    if(results.length>0){
+      return res.cc("该设备号已被注册！");
+    }
+    const addterminal = "insert into TerminalList set ?";
+    db.query(addterminal,{Mid:Number(terminalinfo.Mid),status:0,address:terminalinfo.address},(err,results)=>{
+      if(err) return res.cc(err);
+      return res.send({ status: 0, message: "添加终端成功！"});
+    })
+  })
+}
+
+//更新终端状态
+exports.fixTerminal = (req, res) => {
+  const terminalinfo = req.query;
+  if (!terminalinfo.Mid) {
+    return res.send({ status: 1, message: "修改终端信息不能为空！" });
+  }
+  const queryTerminal = "select * from TerminalList where Mid=?";
+  db.query(queryTerminal,Number(terminalinfo.Mid), (err, results) => {
+    if (err) {
+      return res.cc(err);
+    }
+    if(results.length == 0){
+      return res.cc("该设备号尚未注册！");
+    }
+    const addterminal = "update TerminalList set status=? where Mid=?";
+    db.query(addterminal,[Number(terminalinfo.status),Number(terminalinfo.Mid)],(err,results)=>{
+      if(err) return res.cc(err);
+      return res.send({ status: 0, message: "修改终端状态成功！"});
+    })
+  })
+}
+
+//删除终端
+exports.removeTerminal = (req, res) => {
+  const terminalinfo = req.query;
+  if (!terminalinfo.Mid) {
+    return res.send({ status: 1, message: "终端号不能为空！" });
+  }
+  const queryTerminal = "select * from TerminalList where Mid=?";
+  db.query(queryTerminal,Number(terminalinfo.Mid), (err, results) => {
+    if (err) {
+      return res.cc(err);
+    }
+    if(results.length == 0){
+      return res.cc("该设备号尚未注册！");
+    }
+    const addterminal = "update TerminalList set status=? where Mid=?";
+    db.query(addterminal,[2,Number(terminalinfo.Mid)],(err,results)=>{
+      if(err) return res.cc(err);
+      return res.send({ status: 0, message: "删除终端成功！"});
+    })
+  })
+}
+
+exports.queryTerminal = (req, res) => {
+  const queryTerminals = "select * from TerminalList where status<2";
+  db.query(queryTerminals, (err, results) => {
+    // 执行 SQL 语句失败
+    if (err) {
+      return res.cc(err);
+    }
+    return res.send({Terminals: results})
+  })
 }

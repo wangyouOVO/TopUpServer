@@ -2,6 +2,19 @@
 // 导入数据库操作模块
 const db = require("../db/index");
 const config = require("../config")
+
+// 选择充值终端
+exports.selectTerminal = (req, res) => {
+  const queryTerminals = "select * from TerminalList where status<2";
+  db.query(queryTerminals, (err, results) => {
+    // 执行 SQL 语句失败
+    if (err) {
+      return res.cc(err);
+    }
+    return res.render("select", {Terminals: results,ip: config.ip,port: config.port})
+  })
+}
+
 exports.topUp = (req, res) => {
   //@ 接受表单数据
   const orderinfo = req.body;
@@ -107,3 +120,15 @@ exports.topUp = (req, res) => {
   });
 };
 
+exports.rendertopup = (req,res) => {
+  const Mid = Number(req.query.Mid) ;
+  console.log(Mid)
+  const queryTerminal = "select * from TerminalList where Mid=?";
+  db.query(queryTerminal,Mid, (err, results) => {
+    if (err) {
+      return res.cc(err);
+    }
+    console.log(results)
+    return res.render("VM",{terminal: results[0],ip: config.ip,port: config.port})
+  })
+}
