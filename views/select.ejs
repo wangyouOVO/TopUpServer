@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,24 +8,33 @@
     <title>选择终端</title>
     <link rel="stylesheet" href="/stylesheet/select.css">
 </head>
+
 <body>
     <div>
         <h1 class="h1">请选择业务终端</h1>
         <div class="listBox">
-        <%   Terminals.forEach(function(item){%>
-        <a style="text-decoration:none" href="http://<%= ip %>:<%= port %>/user/select?Mid=<%= item.Mid%>">
-            <div class="listItem">
-                <div class="topBox">终端号: 00<%= item.Mid%></div>
-                <div class="bottomBox">地址：<%= item.address%></div> 
+            <% Terminals.forEach(function(item){%>
                 <% if(item.status==0){%>
-                    <div class="rightBox">服务中</div> 
-                <%}else{%>
-                    <div class="rightBox" style="color:red">已离线</div>
-                <%}%>
-            </div>
-        </a>
-        <%}) %>
-        </div>     
+                    <a style="text-decoration:none" href="http://<%= ip %>:<%= port %>/user/select?Mid=<%= item.Mid%>">
+                        <div class="listItem">
+                            <div class="topBox">终端号: 00<%= item.Mid%></div>
+                            <div class="bottomBox">地址：<%= item.address%></div>
+                            <div class="rightBox">服务中</div>
+                        </div>
+                    </a>
+                    <%}else{%>
+                    <a style="text-decoration:none" >
+
+                        <div onclick="alert('该终端故障离线中！')" class="listItem">
+                            <div class="topBox">终端号: 00<%= item.Mid%></div>
+                            <div class="bottomBox">地址：<%= item.address%></div>
+                            <div class="rightBox" style="color:red">已离线</div>
+                        </div>
+                    </a>
+                    <%}%>
+            <%}) %>
+        </div>
     </div>
 </body>
+
 </html>

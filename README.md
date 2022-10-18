@@ -49,6 +49,7 @@ create table TopUpLog(id INT primary key auto_increment,
   `time` DATETIME DEFAULT CURRENT_TIMESTAMP,
   Mid INT DEFAULT 1);#创建充值记录表
 create table trafficLog(id INT primary key auto_increment, year INT,month INT,day INT,times INT, rmb decimal(10,2) not null default 0, Mid INT);#创建日流量表
+create table TerminalList(id INT primary key auto_increment, Mid INT,status INT,address VARCHAR(40))，version int not null default 1;#创建终端管理表
 exit;#退出sql终端
 ```
 4. 开启mysql服务
