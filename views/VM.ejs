@@ -10,34 +10,40 @@
 </head>
 
 <body>
-    <h1 class="h1">模拟IC充值终端</h1>
-    <form class="formbox" name="formPost" method="post" action="http://<%= ip %>:<%= port %>/user"
-        enctype="application/x-www-form-urlencoded">
-        <div class="items">
-            <div>模拟终端号:</div>
-            <input  name="device" type="text" onfocus="this.blur();" value="<%= terminal.Mid%>" />
-        </div>
-        <div class="items">
-            <div>用户手机：</div>
-            <input name="phone" type="text" placeholder="请输入号码" />
-        </div>
-        <div class="items">
-            <div>充值金额：</div>
+    <h1 class="h1">IC充值终端</h1>
+    <div class="Box">
+        
+        <form class="formbox" name="formPost" method="post" action="http://<%= ip %>:<%= port %>/user"
+            enctype="application/x-www-form-urlencoded">
+            <div class="items">
+                <div class="lable">终端号:</div>
+                <input class="Mid" name="device" type="text" onfocus="this.blur();" value="00<%= terminal.Mid%>" />
+            </div>
+            <div class="items">
+                <div class="lable">用户手机：</div>
+                <input name="phone" type="text" onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" placeholder="请输入号码" required />
+            </div>
+            <div class="items">
+                <div class="lable">充值金额：</div>
 
-            <input name="rmb" type="text" placeholder="请输入金额" />
-        </div>
+                <input name="rmb" type="text" onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" placeholder="请输入金额" required />
+            </div>
 
-        <div class="items">
-            <input type="submit" value="确定充值">
-            <input type="reset" value="取消支付">
-        </div>
-        <div class="items">
-           <a href="http://<%= ip %>:<%= port %>/manager">没有账户？</a>
-        </div>
+            <div class="items">
+                <input type="submit" style="background-color: rgb(95, 212, 95);" value="确定充值">
+                <input type="reset"  style="background-color: rgb(230, 163, 63);" value="取消支付">
+            </div>
+            <div class="items">
+                <a href="http://<%= ip %>:<%= port %>/manager">没有账户？</a>
+            </div>
 
-    </form>
-    <div>地址：<%= terminal.address%></div>
-    <div>版本号：1.<%= terminal.version%></div>
+        </form>
+    </div>
+
+    <div class="footer">地址：<%= terminal.address%>
+    </div>
+    <div class="footer">版本号：1.<%= terminal.version%>
+    </div>
 </body>
 
 </html>

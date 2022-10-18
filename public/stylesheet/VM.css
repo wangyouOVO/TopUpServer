@@ -15,9 +15,45 @@
 }
 
 .items{
-    width: 250px;
+    width: 270px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content:space-between
+}
+
+input,  button {
+    font-family: sans-serif;
+    font-size: 1em;
+    color: #59429d;
+    border-radius: 5px;
+}
+
+.lable{
+    font-weight: 500;
+    font-family: sans-serif;
+}
+
+.Mid{
+    border: 0px;
+    width: 30px;
+    background-color:rgb(247, 240, 232) ;
+}
+.Box{
+    padding-top: 30px;
+    width: 400px;
+    height:250px;
+    border: 2px solid rgb(31, 21, 21);
+    border-radius: 20px;
+    box-shadow: #59429d;
+    background-color: rgb(247, 240, 232);
+}
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.footer{
+    margin: 8px;
+
 }

@@ -5,15 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>选择终端</title>
+    <link rel="stylesheet" href="/stylesheet/select.css">
 </head>
 <body>
     <div>
-        请选择模拟终端
-    </div>
-    <%   Terminals.forEach(function(item){%>
-        <a href="http://<%= ip %>:<%= port %>/user/select?Mid=<%= item.Mid%>">
-            <div style="height: 50 "><%= item.Mid%> 地址：<%= item.address%></div>
+        <h1 class="h1">请选择业务终端</h1>
+        <div class="listBox">
+        <%   Terminals.forEach(function(item){%>
+        <a style="text-decoration:none" href="http://<%= ip %>:<%= port %>/user/select?Mid=<%= item.Mid%>">
+            <div class="listItem">
+                <div class="topBox">终端号: 00<%= item.Mid%></div>
+                <div class="bottomBox">地址：<%= item.address%></div> 
+                <% if(item.status==0){%>
+                    <div class="rightBox">服务中</div> 
+                <%}else{%>
+                    <div class="rightBox" style="color:red">已离线</div>
+                <%}%>
+            </div>
         </a>
-    <%}) %>
+        <%}) %>
+        </div>     
+    </div>
 </body>
 </html>

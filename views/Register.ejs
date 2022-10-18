@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,25 +8,29 @@
     <title>Document</title>
     <link rel="stylesheet" href="/stylesheet/VM.css">
 </head>
+
 <body>
     <h1 class="h1">模拟开户</h1>
-    <form class="formbox" name="formPost" method="get" action="http://<%= ip %>:<%= port %>/manager/register"
-        enctype="application/x-www-form-urlencoded">
-        <div class="items">
-            <div>开户人姓名：</div>
-            <input name="name" type="text" placeholder="请输入姓名" />
-        </div>
-        <div class="items">
-            <div>用户手机：</div>
+    <div class="Box">
+        <form class="formbox" name="formPost" method="get" action="http://<%= ip %>:<%= port %>/manager/register"
+            enctype="application/x-www-form-urlencoded">
+            <div class="items">
+                <div class="lable">用户姓名：</div>
+                <input name="name" type="text" placeholder="请输入开户人姓名" required/>
+            </div>
+            <div class="items">
+                <div class="lable">用户手机：</div>
 
-            <input name="phone" type="text" placeholder="输入绑定手机号" />
-        </div>
+                <input name="phone" type="text" onkeyup="value=value.replace(/[^\d]/g,'').replace(/^0{1,}/g,'')" placeholder="输入绑定手机号" required/>
+            </div>
 
-        <div class="items">
-            <input type="submit" value="确定开户">
-            <input type="reset" value="取消开户">
-        </div>
-        <a href="http://<%= ip %>:<%= port %>">返回充值页面</a>
-    </form>
+            <div class="items">
+                <input type="submit" style="background-color: rgb(95, 212, 95);" value="确定开户">
+                <input type="reset" style="background-color: rgb(230, 163, 63);" value="取消开户">
+            </div>
+            <a style="margin-top:8px" href="http://<%= ip %>:<%= port %>">返回充值页面</a>
+        </form>
+    </div>
 </body>
+
 </html>

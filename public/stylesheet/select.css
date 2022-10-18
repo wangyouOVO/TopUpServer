@@ -1,0 +1,45 @@
+.h1{
+    margin-top: 80px;
+   font-size: 50px;
+    color:rgb(49, 153, 223);
+	text-align:center;
+}
+
+.listBox{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.listItem{
+
+    width:400px;
+    height: 70px;
+    border: 2px;
+    border-radius: 10px;
+    background-color: rgb(138, 243, 208);
+}
+
+.topBox{
+    font-size: 30px;
+    height: 30px;
+    text-align:left;
+    margin: 10px; 
+    padding-top: 8px;
+}
+
+.bottomBox{
+    font-size: 15px;
+    height: 15px;
+    text-align:left;
+    margin: 6px; 
+}
+
+.rightBox{
+    position: relative;
+    bottom: 50px;
+    margin-left: 80%;
+    color: rgb(0, 38, 252);
+    font-size: 15px;
+}
