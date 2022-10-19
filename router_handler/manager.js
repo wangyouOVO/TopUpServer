@@ -262,7 +262,7 @@ exports.removeTerminal = (req, res) => {
 }
 
 exports.queryTerminal = (req, res) => {
-  const queryTerminals = "select * from TerminalList where status<2";
+  const queryTerminals = "select * from TerminalList";
   db.query(queryTerminals, (err, results) => {
     // 执行 SQL 语句失败
     if (err) {
